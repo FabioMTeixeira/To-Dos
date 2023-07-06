@@ -26,6 +26,20 @@ function Main() {
     event.target.value = ''
   }
 
+  function handleDeleteTask(taskId) {
+    const localTasks = [...tasks]
+
+    const taskIndex = localTasks.findIndex((task) => task.id === taskId)
+
+    if(taskIndex === -1) {
+      return
+    }
+
+    localTasks.splice(taskIndex, 1)
+
+    setTasks(localTasks)
+  }
+
   return (
     <div className='container'>
       <div>
@@ -40,7 +54,12 @@ function Main() {
           {tasks.map((task) => (
           <li key={task.id}>
             <span>{task.name}</span>
-            <button className='btn-del'>X</button>
+            <button 
+            className='btn-del'
+            onClick={() => handleDeleteTask(task.id)}
+            >
+              X
+            </button>
           </li>
           ))}
         </ul>
