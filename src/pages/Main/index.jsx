@@ -40,6 +40,20 @@ function Main() {
     setTasks(localTasks)
   }
 
+  function handleChangeStatus(taskId) {
+    const localTasks = [...tasks]
+
+    const findTask = localTasks.find((task) => task.id === taskId)
+
+    if(!findTask) {
+      return
+    }
+
+    findTask.done = !findTask.done
+
+    setTasks(localTasks)
+  } 
+
   return (
     <div className='container'>
       <div>
@@ -53,7 +67,12 @@ function Main() {
         <ul>
           {tasks.map((task) => (
           <li key={task.id}>
-            <span>{task.name}</span>
+            <span 
+            className={task.done && 'task-done' }
+            onClick={() => handleChangeStatus(task.id)}
+            >
+              {task.name}
+            </span>
             <button 
             className='btn-del'
             onClick={() => handleDeleteTask(task.id)}
